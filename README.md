@@ -10,6 +10,14 @@
     Linux raspberrypi 5.4.51-v8+ #1327 SMP PREEMPT Thu Jul 23 11:11:34 BST 2020 aarch64 GNU/Linux
     pi@raspberrypi:~ $ mount -V
     mount from util-linux 2.33.1 (libmount 2.33.1: selinux, smack, btrfs, namespaces, assert, debug)
+    
+
+    pi@raspberrypi:~ $ lsb_release -a
+    No LSB modules are available.
+    Distributor ID:	Debian
+    Description:	Debian GNU/Linux 10 (buster)
+    Release:	10
+    Codename:	buster
      
  
 # このページでできる事  
