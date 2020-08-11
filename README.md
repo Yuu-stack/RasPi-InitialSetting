@@ -29,7 +29,7 @@
 
 # 02.aptアップデート  
 
-`$ sudo apt update && sudo apt upgrade`
+`$ sudo apt update && sudo apt upgrade -y`
 
 # 03.vimのインストールと設定  
 
