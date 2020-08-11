@@ -130,6 +130,28 @@
     sudo vim /etc/hostname
     sudo vim /etc/hosts
 
+# EX.番外編　NASマウント  
+
+下記コマンドを使用し /mnt/ に NAS01 フォルダーを作成し `HOME-NAS/` 以下の `NAS01` をマウントしていきます。  
+`//192.168.10.xxx/HOME-NAS/` には ディレクトリ以下に NAS01,NAS02,NAS03 があると仮定しています。  
+
+    $ sudo mkdir /mnt/NAS01 && sudo chmod 755 /mnt/NAS01
+
+`$ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAS01 --verbose -o username=********,password=**********,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0`
+
+
+この時、下記の様な mount error が出る場合があります。  
+
+    mount error: cifs filesystem not supported by the system
+    mount error(19): No such device
+    Refer to the mount.cifs(8) manual page (e.g. man mount.cifs)
+    
+この場合は　https://x.momo86.net/?p=41　を参考にし下記コマンドを実行、再起動してください。  
+`$ modprobe cifs && sudo reboot`
+
+再度実行するとマウントできる様になっているはずです。
+
+
 # 最後に
 
 お疲れ様でした！早く自動化したい😭  
