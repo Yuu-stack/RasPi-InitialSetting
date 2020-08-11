@@ -141,12 +141,21 @@
 
 # EX.番外編　NASマウント  
 
-下記コマンドを使用し /mnt/ に NAS01 フォルダーを作成し `HOME-NAS/` 以下の `NAS01` をマウントしていきます。  
+下記コマンドを使用し ラズパイの /mnt/ に NAStest フォルダーを作成し 今回は`HOME-NAS/` 以下の `NAS01` をマウントしていきます。  
 `//192.168.10.xxx/HOME-NAS/` には ディレクトリ以下に NAS01,NAS02,NAS03 があると仮定しています。  
+各自のNAS直下に存在するディレクトリ(フォルダ📁)を使用してください。  
 
-    $ sudo mkdir /mnt/NAS01 && sudo chmod 755 /mnt/NAS01
+    $ sudo mkdir /mnt/NAStest && sudo chmod 755 /mnt/NAS01
 
-    $ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAS01 --verbose -o username=********,password=**********,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0
+    $ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAStest --verbose -o username=hogehogeuser,password=hogehogepassword,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0
+    
+hogehogeuserとhogehogepasswordは各自NASへログインする際に必要な物に変更してください。 
+設定してない方はこの箇所のみ削除し実行してください。  
+確認してませんが下記コマンドでマウントできると思います。  
+参考にしてください。 
+    
+    $ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAStest --verbose -o uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0
+    
     
 ここで`uid=xxxx,gid=xxxx`の値は `$ id` コマンドで確認した使用しているユーザーの値になります。  
 
@@ -162,9 +171,16 @@
     
 この場合は　https://x.momo86.net/?p=41  
 を参考にし下記コマンドを実行、再起動してください。  
-`$ modprobe cifs && sudo reboot`
+
+    $ modprobe cifs 
+    $ sudo reboot
 
 再度実行するとマウントできる様になっているはずです.  
+概要を確認できてませんが、マウントする際に必要な`cifs`が 実機で使用してるカーネル側で有効になっていない時に発生するエラーの様です.  
+`apt upgrade`などでカーネルがアップデートされた際(最新のカーネル,対応していないカーネルで)稀に出ます。  
+
+参考:CIFSの導入について https://armadillo.atmark-techno.com/forum/armadillo/1767  
+
 
 #マウントできる事を確認できたら起動時に自動でマウントできる様に設定していきます。  
 
@@ -175,21 +191,18 @@
     //192.168.10.110/HOME-NAS/NAS01 /mnt/NAS01 cifs username=**********,password=***********,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults 0 0 
     
 > <s>`$ sudo raspi-config`から`2 Network Options` >> で接続されるまで待機をオンにしておきます。  </s>
-
-ここまでできたら再起動させ `$ ls -la /mnt/NAS01` でNASがマウントされているか確認してください。  
-
-    $ sudo mount -a
-    $ df
     
 #ネットワークサービス起動後にマウントするように設定  
 通信可能な状態になってからNASのマウントを行わないと失敗するの下記設定を行います。  
 `$ sudo raspi-config`
 
-3 Boot Options  >>  B2 Wait for Network at Boot Choose.. >> yes.
-上記の様に選択し、`$ sudo reboot`  
-`$ df`  
+3 Boot Options  >>  B2 Wait for Network at Boot Choose.. >> yes >> OK.  
+上記の様に選択し、`$ df`コマンドを使用しマウントされているか確認.  
 
-/mnt/NAS01 にマウントされていることを確認し終了です！  
+    $ sudo reboot
+    $ df 
+
+/mnt/NAS01 に //192.168.10.xxx/HOME-NAS/NAS01 がマウントされていることを確認し終了です！  
 これでエラーが表示されずマウントできていることが確認できたら起動時に自動マウントされるようになります。  
 
 # 最後に
