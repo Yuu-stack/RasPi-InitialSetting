@@ -152,6 +152,15 @@
 
 再度実行するとマウントできる様になっているはずです。
 
+#マウントできる事を確認できたら起動時に自動でマウントできる様に設定していきます。  
+#自動起動の設定  
+ `$ sudo vim /etc/fstab`で下記追加  
+
+    //192.168.10.110/HOME-NAS/NAS01 /mnt/NAS01 cifs username=**********,password=***********,uid=root,gid=root,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults 0 0 
+    
+`$ sudo raspi-config`からnetwork設定で接続されるまで待機をオンにしておきます。  
+
+ここまでできたら再起動させ `$ ls -la /mnt/NAS01` でNASがマウントされているか確認してください。  
 
 # 最後に
 
