@@ -158,9 +158,24 @@
 
     //192.168.10.110/HOME-NAS/NAS01 /mnt/NAS01 cifs username=**********,password=***********,uid=root,gid=root,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults 0 0 
     
-`$ sudo raspi-config`からnetwork設定で接続されるまで待機をオンにしておきます。  
+`$ sudo raspi-config`から`2 Network Options` >> で接続されるまで待機をオンにしておきます。  
 
 ここまでできたら再起動させ `$ ls -la /mnt/NAS01` でNASがマウントされているか確認してください。  
+
+    $ sudo mount -a
+    $ df
+    
+/mnt/NAS01 にマウントされていることを確認  
+これでエラーが表示されずマウントできていることが確認できたら起動時に自動マウントされるようになります。  
+
+#ネットワークサービス起動後にマウントするように設定  
+通信可能な状態になってからNASのマウントを行わないと失敗するの下記設定を行います。  
+`$ sudo raspi-config`
+
+3 Boot Options  >>  B2 Wait for Network at Boot Choose.. >> yes.
+上記の様に選択し、`$ sudo reboot`  
+`$ df`
+/mnt/nas にマウントされていることを確認し終了です！  
 
 # 最後に
 
