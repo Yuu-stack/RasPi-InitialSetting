@@ -1,7 +1,15 @@
 # RasPi-InitialSetting
 
-下記作成のimgを使用  
+下記作成のimgを使用(ssh+local IP固定化済み)  
  https://github.com/Yuu-stack/RasPIOS-Custom/blob/master/README.md  
+ 
+    pi@raspberrypi:~ $ uname -a
+    Linux raspberrypi 5.4.51-v8+ #1327 SMP PREEMPT Thu Jul 23 11:11:34 BST 2020 aarch64 GNU/Linux
+    pi@raspberrypi:~ $ mount -V
+    mount from util-linux 2.33.1 (libmount 2.33.1: selinux, smack, btrfs, namespaces, assert, debug)
+    
+`2020-05-27-raspios-buster-arm64.img`を使用しています.  
+ http://downloads.raspberrypi.org/raspios_arm64/images/  
  
 # このページでできる事  
 01.簡易設定  
