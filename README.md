@@ -146,7 +146,8 @@
     mount error(19): No such device
     Refer to the mount.cifs(8) manual page (e.g. man mount.cifs)
     
-この場合は　https://x.momo86.net/?p=41　を参考にし下記コマンドを実行、再起動してください。  
+この場合は　https://x.momo86.net/?p=41  
+を参考にし下記コマンドを実行、再起動してください。  
 `$ modprobe cifs && sudo reboot`
 
 再度実行するとマウントできる様になっているはずです。
