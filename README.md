@@ -19,6 +19,10 @@
 
     $ sudo localedef -f UTF-8 -i en_US en_US
     $ sudo localedef -f UTF-8 -i ja_JP ja_JP
+    
+    まとめて実行した方が楽かも  
+    $ sudo localedef -f UTF-8 -i en_US en_US && sudo localedef -f UTF-8 -i ja_JP ja_JP && sudo localectl set-locale LANG=en_US.utf8
+    
 
 #localeを変更する  
 `$ sudo localectl set-locale LANG=en_US.utf8`
@@ -40,6 +44,11 @@
 
 #Vimのカスタマイズ(.vimrc)設定  
 `$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
+
+まとめて実行した方が楽かも
+
+    $ sudo apt install -y vim-gtk && wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc
+    
 
 /etc/vim/vimrc に存在する元のファイルは消して問題ないと思います。  
 削除、上書きは適宜行ってください。  
@@ -137,10 +146,15 @@
 
     $ sudo mkdir /mnt/NAS01 && sudo chmod 755 /mnt/NAS01
 
-`$ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAS01 --verbose -o username=********,password=**********,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0`
+    $ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAS01 --verbose -o username=********,password=**********,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0
+    
+ここで`uid=xxxx,gid=xxxx`の値は `$ id` コマンドで確認した使用しているユーザーの値になります。  
+
+    pi@raspberrypi:~ $ id
+    uid=1000(pi) gid=1000(pi) groups=1000(pi)
 
 
-この時、下記の様な mount error が出る場合があります。  
+マウント時、下記の様な mount error が出る場合があります。  
 
     mount error: cifs filesystem not supported by the system
     mount error(19): No such device
@@ -150,36 +164,37 @@
 を参考にし下記コマンドを実行、再起動してください。  
 `$ modprobe cifs && sudo reboot`
 
-再度実行するとマウントできる様になっているはずです。
+再度実行するとマウントできる様になっているはずです.  
 
 #マウントできる事を確認できたら起動時に自動でマウントできる様に設定していきます。  
-#自動起動の設定  
+
+# NASマウント自動起動の設定 
+
  `$ sudo vim /etc/fstab`で下記追加  
 
-    //192.168.10.110/HOME-NAS/NAS01 /mnt/NAS01 cifs username=**********,password=***********,uid=root,gid=root,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults 0 0 
+    //192.168.10.110/HOME-NAS/NAS01 /mnt/NAS01 cifs username=**********,password=***********,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults 0 0 
     
-`$ sudo raspi-config`から`2 Network Options` >> で接続されるまで待機をオンにしておきます。  
+> <s>`$ sudo raspi-config`から`2 Network Options` >> で接続されるまで待機をオンにしておきます。  </s>
 
 ここまでできたら再起動させ `$ ls -la /mnt/NAS01` でNASがマウントされているか確認してください。  
 
     $ sudo mount -a
     $ df
     
-/mnt/NAS01 にマウントされていることを確認  
-これでエラーが表示されずマウントできていることが確認できたら起動時に自動マウントされるようになります。  
-
 #ネットワークサービス起動後にマウントするように設定  
 通信可能な状態になってからNASのマウントを行わないと失敗するの下記設定を行います。  
 `$ sudo raspi-config`
 
 3 Boot Options  >>  B2 Wait for Network at Boot Choose.. >> yes.
 上記の様に選択し、`$ sudo reboot`  
-`$ df`
-/mnt/nas にマウントされていることを確認し終了です！  
+`$ df`  
+
+/mnt/NAS01 にマウントされていることを確認し終了です！  
+これでエラーが表示されずマウントできていることが確認できたら起動時に自動マウントされるようになります。  
 
 # 最後に
 
-お疲れ様でした！早く自動化したい😭  
+お疲れ様でした！早く設定を自動化し楽したいですね😭  
 
 
 
