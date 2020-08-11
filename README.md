@@ -147,7 +147,7 @@
 
     $ sudo mkdir /mnt/NAStest && sudo chmod 755 /mnt/NAS01
 
-    $ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAStest --verbose -o username=hogehogeuser,password=hogehogepassword,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0
+    $ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAStest --verbose -o username=hogehogeuser,password=hogehogepass,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0
     
 hogehogeuserとhogehogepasswordは各自NASへログインする際に必要な物に変更してください。 
 設定してない方はこの箇所のみ削除し実行してください。  
@@ -188,8 +188,10 @@ hogehogeuserとhogehogepasswordは各自NASへログインする際に必要な�
 
  `$ sudo vim /etc/fstab`で下記追加  
 
-    //192.168.10.110/HOME-NAS/NAS01 /mnt/NAS01 cifs username=**********,password=***********,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults 0 0 
-    
+    //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAStest cifs username=hogehogeuser,password=hogehogepass,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults 0 0 
+ 
+vimを使用している方であれば esc key +`:%s/hogehogeuser/yomogi` の様に `:%s/変更したい文字列/変更後文字列`で書き換えができます.  
+
 > <s>`$ sudo raspi-config`から`2 Network Options` >> で接続されるまで待機をオンにしておきます。  </s>
     
 #ネットワークサービス起動後にマウントするように設定  
@@ -202,7 +204,7 @@ hogehogeuserとhogehogepasswordは各自NASへログインする際に必要な�
     $ sudo reboot
     $ df 
 
-/mnt/NAS01 に //192.168.10.xxx/HOME-NAS/NAS01 がマウントされていることを確認し終了です！  
+/mnt/NAStest に //192.168.10.xxx/HOME-NAS/NAS01 がマウントされていることを確認し終了です！  
 これでエラーが表示されずマウントできていることが確認できたら起動時に自動マウントされるようになります。  
 
 # 最後に
