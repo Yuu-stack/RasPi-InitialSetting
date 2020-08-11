@@ -6,6 +6,9 @@
 下記で ssh有効化 + local IP固定化済み.   
  https://github.com/Yuu-stack/RasPIOS-Custom/blob/master/README.md  
  
+ 下記コマンドを実行し現在の環境をメモしておく.  
+ `$ uname -a && lsb_release -a`
+ 
     pi@raspberrypi:~ $ uname -a
     Linux raspberrypi 5.4.42-v8+ #1319 SMP PREEMPT Wed May 20 14:18:56 BST 2020 aarch64 GNU/Linux
     pi@raspberrypi:~ $ lsb_release -a
@@ -15,12 +18,11 @@
     Release:	10
     Codename:	buster
 > 
+
     pi@raspberrypi:~ $ uname -a
     Linux raspberrypi 5.4.51-v8+ #1327 SMP PREEMPT Thu Jul 23 11:11:34 BST 2020 aarch64 GNU/Linux
     pi@raspberrypi:~ $ mount -V
     mount from util-linux 2.33.1 (libmount 2.33.1: selinux, smack, btrfs, namespaces, assert, debug)
-    
-
     pi@raspberrypi:~ $ lsb_release -a
     No LSB modules are available.
     Distributor ID:	Debian
