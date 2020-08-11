@@ -174,7 +174,7 @@
 `//192.168.10.xxx/HOME-NAS/` には ディレクトリ以下に NAS01,NAS02,NAS03 があると仮定しています。  
 各自のNAS直下に存在するディレクトリ(フォルダ📁)を使用してください。  
 
-    $ sudo mkdir /mnt/NAStest && sudo chmod 755 /mnt/NAS01
+    $ sudo mkdir /mnt/NAStest && sudo chmod 755 /mnt/NAStest
 
     $ sudo mount -t cifs //192.168.10.xxx/HOME-NAS/NAS01 /mnt/NAStest --verbose -o username=hogehogeuser,password=hogehogepass,uid=1000,gid=1000,file_mode=0666,dir_mode=0755,iocharset=utf8,defaults,vers=3.0
     
