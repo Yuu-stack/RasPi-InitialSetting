@@ -69,21 +69,21 @@
 `$ sudo apt --purge remove -y vim-common vim-tiny`
 
 #通常のvim をインストール  
-`$ sudo apt install vim-gtk -y`
+`$ sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak`
 
 #Vimのカスタマイズ(.vimrc)設定  
 `$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
 
 まとめて実行した方が楽かも
 
-    $ sudo apt install vim-gtk -y && wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc
+    $ sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak && wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc
     
     
 ubuntuでvimのバックスペースを使った削除ができなかったのでそれ用に追加しました.  
 バックスペースが使える環境では変な動作になるので使い分けてください.  
 
 
-    $ sudo apt install vim-gtk -y && wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc
+    $ sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak && wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc
    
    
 /etc/vim/vimrc に存在する元のファイルは消して問題ないと思います。  
