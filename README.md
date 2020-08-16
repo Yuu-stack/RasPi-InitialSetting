@@ -74,14 +74,17 @@
 #Vimのカスタマイズ(.vimrc)設定  
 `$ curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
 
-反映されないときはcurlが動いてないので、
+反映されないときはcurlが動いてないので、一旦削除しwgetで再実行  
+`$ sudo rm -r ~/.vimrc && sudo rm -r ~/.vimrc.1`  
 `$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
     
 ubuntuでvimのバックスペースを使った削除ができなかったのでそれ用に追加しました.  
 バックスペースが使える環境では変な動作になるので使い分けてください.  
 
 
-`$ curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
+`$ curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`  
+反映されないときはcurlが動いてないので、一旦削除しwgetで再実行  
+`$ sudo rm -r ~/.vimrc && sudo rm -r ~/.vimrc.1`  
 `$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
   
    
