@@ -74,17 +74,16 @@
 #Vimのカスタマイズ(.vimrc)設定  
 `$ curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
 
-まとめて実行した方が楽かも
-
-    $ sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak && curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc
-    
+反映されないときはcurlが動いてないので、
+`$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
     
 ubuntuでvimのバックスペースを使った削除ができなかったのでそれ用に追加しました.  
 バックスペースが使える環境では変な動作になるので使い分けてください.  
 
 
-    $ sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak && curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc
-   
+`$ curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
+`$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
+  
    
 /etc/vim/vimrc に存在する元のファイルは消して問題ないと思います。  
 削除、上書きは適宜行ってください。  
