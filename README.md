@@ -41,7 +41,7 @@ NASのマウント (おまけ)
     ssh-import-id gh:Yuu-stack && \
     sudo vim /etc/dhcpcd.conf
     
-> `/etc/dhcpcd.conf`へ追記 `esc :w`保存 `esc :q`抜ける `esc :q!`強制的に抜ける vim詳細は調べて.
+> `/etc/dhcpcd.conf`へ追記 `esc :w`保存 `esc :q`抜ける `esc :q!`強制的に抜ける vim詳細は調べて.  
 > :%s/xxx/0 :%s/xx/5 これで置換ができる  
 
     # Static IP Address
@@ -54,7 +54,7 @@ NASのマウント (おまけ)
     static domain_name_servers=192.168.xxx.1
     
 > 自分のgithubアカウントに登録している公開鍵を raspiに登録.  
-ついでに`sudo raspi-config`を使い Hostnameも変更する.
+ついでに`sudo raspi-config`を使い Hostnameも変更する.  
 
     ssh-import-id gh:Yuu-stack
     sudo raspi-config
@@ -62,7 +62,7 @@ NASのマウント (おまけ)
     sudo reboot
     
     
-> macから自分の秘密鍵でraspiへloginできることを確認.
+> macから自分の秘密鍵でraspiへloginできることを確認.  
 
     > macOS :~ $
     ssh-keygen -R 192.168.0.10 && \
