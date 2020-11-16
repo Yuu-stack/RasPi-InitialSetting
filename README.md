@@ -7,91 +7,45 @@
  https://github.com/Yuu-stack/RasPIOS-Custom/blob/master/README.md  
  
  下記コマンドを実行し現在の環境をメモしておく.  
- `$ uname -a && lsb_release -a`
- 
-    pi@raspberrypi:~ $ uname -a
-    Linux raspberrypi 5.4.42-v8+ #1319 SMP PREEMPT Wed May 20 14:18:56 BST 2020 aarch64 GNU/Linux
-    pi@raspberrypi:~ $ lsb_release -a
-    No LSB modules are available.
-    Distributor ID:	Debian
-    Description:	Debian GNU/Linux 10 (buster)
-    Release:	10
-    Codename:	buster
-> 
-
-    pi@raspberrypi:~ $ uname -a
-    Linux raspberrypi 5.4.51-v8+ #1327 SMP PREEMPT Thu Jul 23 11:11:34 BST 2020 aarch64 GNU/Linux
-    pi@raspberrypi:~ $ mount -V
-    mount from util-linux 2.33.1 (libmount 2.33.1: selinux, smack, btrfs, namespaces, assert, debug)
-    pi@raspberrypi:~ $ lsb_release -a
-    No LSB modules are available.
-    Distributor ID:	Debian
-    Description:	Debian GNU/Linux 10 (buster)
-    Release:	10
-    Codename:	buster
-     
+ `$ uname -a && lsb_release -a`     
  
 # このページでできる事  
-01.簡易設定  
-02.アップデート  
-03.vimのインストールと設定  
-04.piユーザーを新規ユーザーに置き換え  
-05.hostnameの変更  
-06.NASのマウント (おまけ)
+簡易設定   
+piユーザーを新規ユーザーに置き換え  
+hostnameの変更  
+NASのマウント (おまけ)
 
-# 01.簡易設定  
+# 簡易設定  
 
-#日本時間に合わせる  
-`$ sudo timedatectl set-timezone Asia/Tokyo`
-
+#日本時間に合わせる
 #日本語(en_USとja_JP)を有効にする  
-
-    $ sudo localedef -f UTF-8 -i en_US en_US
-    $ sudo localedef -f UTF-8 -i ja_JP ja_JP
-    
-    まとめて実行した方が楽かも  
-    $ sudo localedef -f UTF-8 -i en_US en_US && sudo localedef -f UTF-8 -i ja_JP ja_JP && sudo localectl set-locale LANG=en_US.utf8
-    
-
 #localeを変更する  
-`$ sudo localectl set-locale LANG=en_US.utf8`
-
-# 02.aptアップデート  
-
-`$ sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y`
-
-# 03.vimのインストールと設定  
-
+#02.aptアップデート  
+#03.vimのインストールと設定  
 #インストールされている Vim の確認  
-`$ dpkg -l | grep vim`
-
 #Vim-tiny のアンインストール  
-`$ sudo apt --purge remove -y vim-common vim-tiny`
-
 #通常のvim をインストール  
-`$ sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak`
-
 #Vimのカスタマイズ(.vimrc)設定  
-`$ curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
+#hostnameの変更  
 
-反映されないときはcurlが動いてないので、一旦削除しwgetで再実行  
-`$ sudo rm -r ~/.vimrc && sudo rm -r ~/.vimrc.1`  
-`$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/89ce616ce37b991b9ccb95addda7d84da084d974/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
+    sudo timedatectl set-timezone Asia/Tokyo && \
+    sudo localedef -f UTF-8 -i en_US en_US && \
+    sudo localedef -f UTF-8 -i ja_JP ja_JP && \
+    sudo localectl set-locale LANG=en_US.utf8 && \
+    sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && \
+    dpkg -l | grep vim && \
+    sudo apt --purge remove -y vim-common vim-tiny && \
+    sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak && \
+    wget -O .vimrc https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && \
+    sudo cp ~/.vimrc /etc/vim/vimrc && \
+    sudo raspi-config
     
-ubuntuでvimのバックスペースを使った削除ができなかったのでそれ用に追加しました.  
-バックスペースが使える環境では変な動作になるので使い分けてください.  
+下記でも変更できる.  
 
-
-`$ curl https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc > .vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`  
-反映されないときはcurlが動いてないので、一旦削除しwgetで再実行  
-`$ sudo rm -r ~/.vimrc && sudo rm -r ~/.vimrc.1`  
-`$ wget https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && sudo cp ~/.vimrc /etc/vim/vimrc`
-  
-   
-/etc/vim/vimrc に存在する元のファイルは消して問題ないと思います。  
-削除、上書きは適宜行ってください。  
-
-# 04.piユーザーを新規ユーザーに置き換え  
+    sudo vim /etc/hostname
+    sudo vim /etc/hosts
+ 
+# piユーザーを新規ユーザーに置き換え  
 
 #ユーザ名の変更  
 以下手順です。ユーザー名変更のため別のユーザを作成し、管理者権限で実行する必要があります。  
@@ -167,15 +121,6 @@ ubuntuでvimのバックスペースを使った削除ができなかったの�
     apple@raspberrypi:~ $ sudo userdel tmp
     
     
-
-# 05.hostnameの変更  
-
-`$ sudo raspi-config`から変更するのが一番楽かと  
-
-下記でも変更できる.  
-
-    sudo vim /etc/hostname
-    sudo vim /etc/hosts
 
 # EX.番外編　NASマウント  
 
