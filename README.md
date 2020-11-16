@@ -38,7 +38,36 @@ NASのマウント (おまけ)
     sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak && \
     wget -O .vimrc https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && \
     sudo cp ~/.vimrc /etc/vim/vimrc && \
+    ssh-import-id gh:Yuu-stack && \
+    sudo vim /etc/dhcpcd.conf
+    
+> `/etc/dhcpcd.conf`へ追記 `esc :w`保存 `esc :q`抜ける `esc :q!`強制的に抜ける vim詳細は調べて.
+> :%s/xxx/0 :%s/xx/5 これで置換ができる  
+
+    # Static IP Address
+    interface eth0
+    # IPアドレスとサブネットマスク（項番１のIP/24でOK）
+    static ip_address=192.168.xxx.xx/24
+    # デフォルトゲートウェイ（ルータのIPアドレス *ブリッジしてる場合はそっちのIP）
+    static routers=192.168.xxx.1
+    # DNSサーバ（ルータのIPアドレス *ブリッジしてる場合はそっちのIP）
+    static domain_name_servers=192.168.xxx.1
+    
+> 自分のgithubアカウントに登録している公開鍵を raspiに登録.  
+ついでに`sudo raspi-config`を使い Hostnameも変更する.
+
+    ssh-import-id gh:Yuu-stack
     sudo raspi-config
+    
+    sudo reboot
+    
+    
+> macから自分の秘密鍵でraspiへloginできることを確認.
+
+    > macOS :~ $
+    ssh-keygen -R 192.168.0.10 && \
+    ssh pi@192.168.0.10 -i ~/.ssh/id_git_rsa
+    
     
 下記でも変更できる.  
 
