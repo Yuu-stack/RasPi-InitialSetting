@@ -20,6 +20,7 @@ NASのマウント (おまけ)
 #日本時間に合わせる
 #日本語(en_USとja_JP)を有効にする  
 #localeを変更する  
+#Wi-Fi利用国に日本を設定する  
 #02.aptアップデート  
 #03.vimのインストールと設定  
 #インストールされている Vim の確認  
@@ -32,6 +33,7 @@ NASのマウント (おまけ)
     sudo localedef -f UTF-8 -i en_US en_US && \
     sudo localedef -f UTF-8 -i ja_JP ja_JP && \
     sudo localectl set-locale LANG=en_US.utf8 && \
+    sudo sh -c 'echo "countery=JP" >> /etc/wpa_supplicant/wpa_supplicant.conf' && \
     sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && \
     dpkg -l | grep vim && \
     sudo apt --purge remove -y vim-common vim-tiny && \
