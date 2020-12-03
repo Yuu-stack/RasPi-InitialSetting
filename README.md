@@ -1,80 +1,46 @@
-# RasPi-InitialSetting
+# RasPi-InitialSetting 
 
-`2020-05-27-raspios-buster-arm64.img`を使用しています.  
- http://downloads.raspberrypi.org/raspios_arm64/images/  
- 
-下記で ssh有効化 + local IP固定化済み.   
- https://github.com/Yuu-stack/RasPIOS-Custom/blob/master/README.md  
- 
- 下記コマンドを実行し現在の環境をメモしておく.  
- `$ uname -a && lsb_release -a`     
- 
-# このページでできる事  
-簡易設定   
+#このページでできる事  
+簡易設定                            //2020/12/3 シンプル化
 piユーザーを新規ユーザーに置き換え  
 hostnameの変更  
 NASのマウント (おまけ)
 
 # 簡易設定  
 
-#日本時間に合わせる
-#日本語(en_USとja_JP)を有効にする  
-#localeを変更する  
-#Wi-Fi利用国に日本を設定する  
-#02.aptアップデート  
-#03.vimのインストールと設定  
-#インストールされている Vim の確認  
-#Vim-tiny のアンインストール  
-#通常のvim をインストール  
-#Vimのカスタマイズ(.vimrc)設定  
-#hostnameの変更  
+日本時間に合わせる
+日本語(en_USとja_JP)を有効にする-->これはなに？？
+localeをja_JP.UTF-8に変更する
+Wi-Fi利用国に日本を設定する
+リポジトリを国内のミラーサイトに変更する
+aptアップデート&アップグレード
+nasで使うファイルシステム（NTFS, exFat）をインストール
+インストールされている Vim の確認 
+Vim-tiny のアンインストール
+通常のvim をインストール
+Vimのカスタマイズ(.vimrc)設定
+githubアカウントに登録している公開鍵を raspiに登録
+IP固定化 (192.168.0.2/24)
+hostnameの変更 (raspi1)
 
-    sudo timedatectl set-timezone Asia/Tokyo && \
-    sudo localedef -f UTF-8 -i en_US en_US && \
-    sudo localedef -f UTF-8 -i ja_JP ja_JP && \
-    sudo localectl set-locale LANG=en_US.utf8 && \
-    sudo sh -c 'echo "countery=JP" >> /etc/wpa_supplicant/wpa_supplicant.conf' && \
+    sudo raspi-config nonint do_change_timezone Asia/Tokyo && \
+    sudo raspi-config nonint do_change_locale ja_JP.UTF-8 && \
+    sudo raspi-config nonint do_wifi_country JP && \
+    sudo sed -i "s/deb.debian.org\/debian /ftp.jp.debian.org\/debian /g" /etc/apt/sources.list && \
     sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && \
+    sudo apt install -y exfat-fuse exfat-utils ntfs-3g && \
     dpkg -l | grep vim && \
     sudo apt --purge remove -y vim-common vim-tiny && \
     sudo apt install vim-gtk -y && sudo cp /etc/vim/vimrc /etc/vim/vimrc.bak && \
     wget -O .vimrc https://gist.github.com/Yuu-stack/afc3644c76d10dc39bd4c0ad48a0bc86/raw/6ca7b465dae295db9789a4bdd6806a1629610d11/.vimrc && \
     sudo cp ~/.vimrc /etc/vim/vimrc && \
     ssh-import-id gh:Yuu-stack && \
-    sudo vim /etc/dhcpcd.conf
-    
-> `/etc/dhcpcd.conf`へ追記 `esc :w`保存 `esc :q`抜ける `esc :q!`強制的に抜ける vim詳細は調べて.  
-> :%s/xxx/0 :%s/xx/5 これで置換ができる  
-
-    # Static IP Address
-    interface eth0
-    # IPアドレスとサブネットマスク（項番１のIP/24でOK）
-    static ip_address=192.168.xxx.xx/24
-    # デフォルトゲートウェイ（ルータのIPアドレス *ブリッジしてる場合はそっちのIP）
-    static routers=192.168.xxx.1
-    # DNSサーバ（ルータのIPアドレス *ブリッジしてる場合はそっちのIP）
-    static domain_name_servers=192.168.xxx.1
-    
-> 自分のgithubアカウントに登録している公開鍵を raspiに登録.  
-ついでに`sudo raspi-config`を使い Hostnameも変更する.  
-
-    ssh-import-id gh:Yuu-stack
-    sudo raspi-config
-    
+    echo 'interface eth0' | tee -a /etc/dhcpcd.conf && \
+    echo 'static ip_address=192.168.0.2/24' | tee -a /etc/dhcpcd.conf && \
+    echo 'static routers=192.168.0.1' | tee -a /etc/dhcpcd.conf && \
+    echo 'staitc domain_name_servers=192.168.0.1' | tee -a /etc/dhcpcd.conf && \
+    sudo raspi-config nonint do_hostname raspi1 && \
     sudo reboot
-    
-    
-> macから自分の秘密鍵でraspiへloginできることを確認.  
-
-    > macOS :~ $
-    ssh-keygen -R 192.168.0.10 && \
-    ssh pi@192.168.0.10 -i ~/.ssh/id_git_rsa
-    
-    
-下記でも変更できる.  
-
-    sudo vim /etc/hostname
-    sudo vim /etc/hosts
  
 # piユーザーを新規ユーザーに置き換え  
 
