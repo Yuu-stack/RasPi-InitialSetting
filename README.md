@@ -8,20 +8,20 @@ NASのマウント (おまけ)
 
 # 簡易設定  
 
-日本時間に合わせる
-日本語(en_USとja_JP)を有効にする-->これはなに？？
-localeをja_JP.UTF-8に変更する
-Wi-Fi利用国に日本を設定する
-リポジトリを国内のミラーサイトに変更する
-aptアップデート&アップグレード
-nasで使うファイルシステム（NTFS, exFat）をインストール
-インストールされている Vim の確認 
-Vim-tiny のアンインストール
-通常のvim をインストール
-Vimのカスタマイズ(.vimrc)設定
-githubアカウントに登録している公開鍵を raspiに登録
-IP固定化 (192.168.0.2/24)
-hostnameの変更 (raspi1)
+日本時間に合わせる  
+日本語(en_USとja_JP)を有効にする-->これはなに？？  
+localeをja_JP.UTF-8に変更する  
+Wi-Fi利用国に日本を設定する  
+リポジトリを国内のミラーサイトに変更する  
+aptアップデート&アップグレード  
+nasで使うファイルシステム（NTFS, exFat）をインストール  
+インストールされている Vim の確認   
+Vim-tiny のアンインストール  
+通常のvim をインストール  
+Vimのカスタマイズ(.vimrc)設定  
+githubアカウントに登録している公開鍵を raspiに登録  
+IP固定化 (192.168.0.2/24)  
+hostnameの変更 (raspi1)  
 
     sudo raspi-config nonint do_change_timezone Asia/Tokyo && \
     sudo raspi-config nonint do_change_locale ja_JP.UTF-8 && \
